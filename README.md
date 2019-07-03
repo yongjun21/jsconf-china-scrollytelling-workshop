@@ -49,7 +49,7 @@
     - 我会尽可能排除 external dependencies 让参与者无需联网开发
     - 会使用框架 (React 用者请在游览器安装 React Devtools, Vue 用者请在游览器安装 Vue Devtools)
 - 参与者所需知识：Vue 或者 React (我会提供一些帮助参与者打造 Scrollytelling 的组建，会有 Vue 和 React 的版本，参与者需要起码懂其中一个框架)
-- 目标：参与者讲师引导一步步完成一个简单的滚动叙事页面
+- 目标：参与者在讲师的引导下一步步完成一个简单的滚动叙事页面
 
 ## 涵盖的知识范围
 
