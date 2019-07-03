@@ -1,5 +1,6 @@
-# jsconf-china-scrollytelling-workshop
 # The Interactive Graphics Developer Toolbox - 互动图表程序员的工具箱
+
+![Demo](./src/assets/scrollytelling.gif)
 
 ## 介绍
 
@@ -13,7 +14,27 @@
 
 我会通过这个工作坊给我们这个领域一个简单的介绍。此外我也要分享我们从互动图表工作得来的一些技术心得。
 
-近年来，各大新闻社的互动图表团 像 New York Times Graphics, Washington Post Graphics, Reuters Graphics 等都开始在引用 Scrollytelling (长篇滚动叙事) 的方式来呈现它们的新闻图表故事。滚动叙事这个技术很适用于移动平台，也很适合现今注意力短的观众。用最小的交互来带出最大的信息是它的一大特真。你们今天会跟着我一起编程一个滚动叙事的页面，故事会以一个地图图表为基础。学会了滚动叙事，你们可以发挥创意，运用在自己的项目，不限于新闻故事。
+近年来，各大新闻社的互动图表团 像 New York Times Graphics, Washington Post Graphics, Reuters Graphics 等都开始在引用 Scrollytelling (滚动叙事) 的方式来呈现它们的新闻图表故事。滚动叙事这个技术很适用于移动平台，也很适合现今注意力短的观众。用最小的交互来带出最大的信息是它的一大特真。你们今天会跟着我一起编程一个滚动叙事的页面，故事会以一个地图图表为基础。学会了滚动叙事，你们可以发挥创意，运用在自己的项目，不限于新闻故事。
+
+## 滚动叙事 例子
+
+### *Straits Times*
+- https://graphics.straitstimes.com/STI/STIMEDIA/Interactives/2019/06/singapore-street-names/index.html
+- https://graphics.straitstimes.com/STI/STIMEDIA/Interactives/2018/10/ST-climate-of-change-great-battered-reef/index.html
+- https://graphics.straitstimes.com/STI/STIMEDIA/Interactives/2019/02/HK-Beijing-HSR/index.html
+
+### *New York Times*
+- https://www.nytimes.com/interactive/2019/03/14/arts/design/hudson-yards-nyc.html
+- https://www.nytimes.com/interactive/2019/04/17/world/europe/notre-dame-cathedral-fire-spread.html
+
+### *Reuters*
+- http://fingfx.thomsonreuters.com/gfx/rngs/PHILIPPINES-DRUGWAR/010041TN3Z8/index.html
+
+### *South China Morning Post*
+- https://multimedia.scmp.com/culture/article/2154046/forbidden-city/life/chapter_01.html
+
+### *Channel News Asia*
+- https://infographics.channelnewsasia.com/jewel-changi-airport/index.html
 
 ## 工作坊的基本规划
 
@@ -47,6 +68,26 @@
   - Images
   - 3D models
   - Videos
+
+## 成品样本
+
+[https://scrollytelling.netlify.com/](https://scrollytelling.netlify.com/)
+
+## 关于讲师
+
+<img src="./src/assets/photo.jpg" width="30%" />
+
+### 汤詠竣 🇸🇬
+
+新加坡报业控股 海峡时报
+
+高级网页程序员
+
+在互动图表和数据可视化开发上有三年的经验。
+
+热爱数据和编程。常在新加坡 Javascript 社区里做演讲/指导工作坊分享技术心得。
+
+在六月份刚结束的 JSConf Asia 2019 指导了一个 SVG Animation 的工作坊。
 
 ## Project setup
 ```
