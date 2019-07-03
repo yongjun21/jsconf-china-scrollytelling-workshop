@@ -79,7 +79,7 @@
 
 ### 汤詠竣 🇸🇬
 
-新加坡报业控股 海峡时报
+新加坡报业控股 <img src="./src/assets/sph-logo.png" height="24px" /> 海峡时报 <img src="./src/assets/st-logo.png" height="24px" />
 
 高级网页程序员
 
