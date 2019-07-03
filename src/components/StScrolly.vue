@@ -219,6 +219,10 @@ function clampedInterpolate (v, v0, v1) {
     position: relative;
     z-index: 1;
     pointer-events: none;
+
+    & > * {
+      box-sizing: border-box;
+    }
   }
 
   .foreground-container {

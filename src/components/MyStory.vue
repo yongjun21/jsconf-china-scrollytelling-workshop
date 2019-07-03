@@ -1,5 +1,5 @@
 <template>
-  <st-scrolly class="my-story" :triggerOffset="-200">
+  <st-scrolly class="my-story" :triggerOffset="-100">
     <template v-slot:background="{slideIndex, slideCount}">
       <dynamic-map :slide-index="slideIndex" :slide-count="slideCount"></dynamic-map>
     </template>
@@ -37,7 +37,6 @@ export default {
   .slide {
     height: 1200px;
     padding: 200px 150px;
-    box-sizing: border-box;
   }
 
   .card {

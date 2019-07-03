@@ -68,6 +68,7 @@
   - Images
   - 3D models
   - Videos
+7. Intersection Observer API
 
 ## 成品样本
 
