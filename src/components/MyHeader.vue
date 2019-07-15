@@ -1,8 +1,8 @@
 <template functional>
-  <div class="my-header">
+  <header class="my-header" :key="data.key">
     <h1>Scrollytelling Demo</h1>
     <h1>滚动叙事 示范</h1>
-  </div>
+  </header>
 </template>
 
 <style lang="scss">

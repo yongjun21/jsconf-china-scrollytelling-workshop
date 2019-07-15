@@ -29,6 +29,10 @@ export default {
     framerate: {
       type: Number,
       default: 60
+    },
+    maxspeed: {
+      type: Number,
+      default: 4
     }
   },
   data () {
@@ -42,42 +46,51 @@ export default {
       return Math.floor(this.progress * this.duration * this.framerate)
     },
     playbackRate () {
-      return Math.min(Math.max(this.targetFrame - this.actualFrame, -4), 4)
+      const diff = this.targetFrame - this.actualFrame
+      if (diff >= 0) return Math.min(diff, this.maxspeed)
+      return Math.max(diff + 1, -this.maxspeed)
+    }
+  },
+  methods: {
+    pollActualFrame ($video) {
+      this.actualFrame = Math.floor($video.currentTime * this.framerate)
+      this.reqID = window.requestAnimationFrame(this.pollActualFrame)
     }
   },
   mounted () {
     const $video = this.$refs.video.$el
 
     let rewinding = false
-    $video.rewind = function (until, rate = 1) {
+    let rewindSpeed = 1
+    function rewind (until) {
       if (rewinding) return
       rewinding = true
-      const t0 = Date.now()
-      const v0 = $video.currentTime
+      let t0 = Date.now()
+      let v0 = $video.currentTime
       window.requestAnimationFrame(function reverse () {
         const targetTime = until()
-        const t1 = Date.now()
-        const v1 = $video.currentTime
-        if (v1 <= targetTime) {
+        if ($video.currentTime <= targetTime) {
           rewinding = false
           return
         }
-        if (!$video.seeking) {
-          $video.currentTime = Math.max(v0 - rate * (t1 - t0) / 1000, targetTime)
-        }
+        const t1 = Date.now()
+        const v1 = Math.max(v0 - rewindSpeed * (t1 - t0) / 1000, targetTime)
+        if (!$video.seeking) $video.currentTime = v1
+        t0 = t1
+        v0 = v1
         window.requestAnimationFrame(reverse)
       })
     }
 
     $video.addEventListener('loadeddata', e => {
       this.duration = $video.duration
-      pollActualFrame.call(this)
+      this.pollActualFrame()
       this.$watch('playbackRate', playbackRate => {
-        if (playbackRate <= -4 && this.progress <= 0) {
+        if (this.progress <= 0 && playbackRate <= -this.maxspeed) {
           $video.currentTime = 0
           return
         }
-        if (playbackRate >= 4 && this.progress >= 1) {
+        if (this.progress >= 1 && playbackRate >= this.maxspeed) {
           $video.currentTime = this.duration
           return
         }
@@ -87,19 +100,16 @@ export default {
           if ($video.paused) $video.play()
         } else {
           $video.pause()
-          if (playbackRate < -1) {
-            if (!$video.rewinding) {
-              $video.rewind(() => this.targetFrame / this.framerate, -playbackRate)
-            }
+          if (playbackRate < 0) {
+            rewindSpeed = -playbackRate
+            rewind(() => (this.targetFrame + 1) / this.framerate)
           }
         }
       }, {immediate: true})
     })
-
-    function pollActualFrame () {
-      this.actualFrame = Math.floor($video.currentTime * this.framerate)
-      window.requestAnimationFrame(pollActualFrame.bind(this))
-    }
+  },
+  beforeDestroy () {
+    if (this.reqID) window.cancelAnimationFrame(this.reqID)
   }
 }
 </script>

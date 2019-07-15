@@ -1,5 +1,5 @@
 <template>
-  <div class="prototype-map">
+  <div class="dynamic-map">
     <div class="map-container" ref="base"></div>
     <div class="deck-container"><canvas ref="deck"></canvas></div>
     <h1 class="year">{{year}}</h1>
@@ -139,7 +139,7 @@ function getTile (x, y, z) {
 </script>
 
 <style lang="scss">
-.prototype-map {
+.dynamic-map {
   width: 100%;
   height: 100%;
 

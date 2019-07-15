@@ -14,7 +14,7 @@
 
 <script>
 import StScrolly from './StScrolly.vue'
-import DynamicMap from './DynamicMap'
+import DynamicMap from './DynamicMap.vue'
 
 export default {
   components: {StScrolly, DynamicMap},

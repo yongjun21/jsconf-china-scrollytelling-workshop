@@ -55,8 +55,8 @@ export default {
       return this.scrollCheckpoints[this.scrollCheckpoints.length - 1]
     },
     active () {
-      const offsetPosition = this.scrollPosition - this.triggerOffset
-      return offsetPosition >= 0 && offsetPosition < this.scrollLength
+      const {scrollPosition} = this
+      return scrollPosition >= 0 && scrollPosition < this.scrollLength
     },
     exposedScope () {
       const {scrollPosition, scrollCheckpoints, scrollLength, triggerOffset, windowHeight_} = this

@@ -1,7 +1,7 @@
 <template functional>
-  <div class="my-footer">
+  <footer class="my-footer" :key="data.key">
     <h1>谢谢</h1>
-  </div>
+  </footer>
 </template>
 
 <style lang="scss">

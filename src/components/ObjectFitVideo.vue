@@ -13,6 +13,7 @@ const supportsObjectFit = window.CSS && window.CSS.supports &&
                           !/Edge/.test(window.navigator.userAgent)
 
 export default {
+  name: 'ObjectFitVideo',
   props: {
     objectFit: {
       type: String,
@@ -28,7 +29,7 @@ export default {
   data () {
     return {
       videoWidth: null,
-      videoHeigth: null,
+      videoHeight: null,
       containerWidth: null,
       containerHeight: null
     }
@@ -51,9 +52,9 @@ export default {
       return parsed
     },
     videoDimension () {
-      const {videoWidth, videoHeigth, containerWidth, containerHeight} = this
+      const {videoWidth, videoHeight, containerWidth, containerHeight} = this
       const containerAspectRatio = containerHeight / containerWidth
-      const videoAspectRatio = videoHeigth / videoWidth
+      const videoAspectRatio = videoHeight / videoWidth
       switch (this.objectFit) {
         case 'fill':
           return {
@@ -78,7 +79,7 @@ export default {
           }
         case 'scale-down':
           const minWidth = Math.min(containerWidth, videoWidth)
-          const minHeight = Math.min(containerHeight, videoHeigth)
+          const minHeight = Math.min(containerHeight, videoHeight)
           return containerAspectRatio >= videoAspectRatio ? {
             width: minWidth,
             height: videoAspectRatio * minWidth
@@ -89,7 +90,7 @@ export default {
         default:
           return {
             width: videoWidth,
-            height: videoHeigth
+            height: videoHeight
           }
       }
     },
@@ -105,7 +106,11 @@ export default {
     }
   },
   methods: {
-    measure () {
+    measureVideo () {
+      this.videoWidth = this.$el.videoWidth
+      this.videoHeight = this.$el.videoHeight
+    },
+    measureContainer () {
       this.containerWidth = this.$el.parentElement.clientWidth
       this.containerHeight = this.$el.parentElement.clientHeight
     },
@@ -127,23 +132,21 @@ export default {
   },
   mounted () {
     if (supportsObjectFit) return
-    this.measure()
-    this.measure = frameRateLimited(this.measure)
-    window.addEventListener('resize', this.measure, {capture: true, passive: true})
-    this.observer = new MutationObserver(this.measure)
+    this.measureContainer()
+    this.measureContainer = frameRateLimited(this.measureContainer)
+    window.addEventListener('resize', this.measureContainer, {capture: true, passive: true})
+    this.observer = new MutationObserver(this.measureContainer)
     this.observer.observe(this.$el.parentElement, {
       attributes: true,
       attributeFilter: ['class', 'style']
     })
 
-    this.$el.addEventListener('loadedmetadata', e => {
-      this.videoWidth = this.$el.videoWidth
-      this.videoHeigth = this.$el.videoHeight
-    })
+    if (this.$el.readyState > 0) this.measureVideo()
+    else this.$el.addEventListener('loadedmetadata', this.measureVideo)
   },
   beforeDestroy () {
     if (supportsObjectFit) return
-    window.removeEventListener('resize', this.measure)
+    window.removeEventListener('resize', this.measureContainer)
     this.observer.disconnect()
   }
 }
