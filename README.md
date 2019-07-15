@@ -72,7 +72,7 @@
 
 ## 成品样本
 
-[https://scrollytelling.netlify.com/](https://scrollytelling.netlify.com/)
+[https://scrollytelling-react.netlify.com/](https://scrollytelling-react.netlify.com/)
 
 ## 关于讲师
 
