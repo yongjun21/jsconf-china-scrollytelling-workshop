@@ -1,0 +1,21 @@
+.my-story {
+  .slide {
+    height: 1200px;
+    padding: 200px 150px;
+  }
+
+  .card {
+    display: inline-block;
+    width: 300px;
+    margin: 0;
+    float: right;
+    padding: 1em;
+    background-color: white;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 2.4em;
+    border-radius: 5px;
+    box-shadow: 0 0 1px #AAA;
+  }
+}
