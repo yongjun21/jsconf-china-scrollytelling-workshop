@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, useCallback} from 'react'
 import PropTypes from 'prop-types'
 import './ObjectFitVideo.scss'
 
@@ -7,8 +7,13 @@ const supportsObjectFit = window.CSS && window.CSS.supports &&
                           !/Edge/.test(window.navigator.userAgent)
 
 const ObjectFitVideo = React.forwardRef((props, ref) => {
-  const _ref = useRef(null)
-  const $el = ref || _ref
+  const $el = useRef(null)
+  
+  const callbackRef = useCallback(el => {
+    if (typeof ref === 'function') ref(el)
+    else if (typeof ref === 'object') ref.current = el
+    $el.current = el
+  }, [ref])
 
   const [videoWidth, setVideoWidth] = useState(null)
   const [videoHeight, setVideoHeight] = useState(null)
@@ -41,26 +46,21 @@ const ObjectFitVideo = React.forwardRef((props, ref) => {
       attributeFilter: ['class', 'style']
     })
 
-    if ($el.current.readyState > 0) {
+    onLoadedmetadata($el.current, () => {
       setVideoWidth($el.current.videoWidth)
       setVideoHeight($el.current.videoHeight)
-    } else {
-      $el.current.addEventListener('loadedmetadata', e => {
-        setVideoWidth($el.current.videoWidth)
-        setVideoHeight($el.current.videoHeight)
-      })
-    }
+    })
 
     return () => {
       window.removeEventListener('resize', measure)
       observer.disconnect()
     }
-  }, [$el])
+  }, [])
 
   const {objectFit, objectPosition, ...rest} = props
   return (
     <video className="object-fit-video"
-      ref={$el}
+      ref={callbackRef}
       style={videoStyle}
       {...rest}>
       {props.children}
@@ -177,4 +177,12 @@ function frameRateLimited (cb, context) {
     })
   }
   return context ? wrapped.bind(context) : wrapped
+}
+
+function onLoadedmetadata ($video, cb) {
+  if ($video.readyState > 0) {
+    cb()
+  } else {
+    $video.addEventListener('loadedmetadata', cb)
+  }
 }

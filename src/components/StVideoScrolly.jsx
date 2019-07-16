@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
-import './StVideoScrolly.css'
+import './StVideoScrolly.scss'
 
 import ObjectFitVideo from './ObjectFitVideo'
 
@@ -42,7 +42,7 @@ function StVideoScrolly (props) {
     }
 
     let reqID
-    $video.addEventListener('loadeddata', e => {
+    onLoadeddata($video, () => {
       video.current = $video
       setDuration($video.duration)
       pollActualFrame()
@@ -82,18 +82,18 @@ function StVideoScrolly (props) {
     }
   }, [playbackRate, props.progress, props.framerate, props.maxspeed, state.duration, state.targetFrame])
 
+  const {progress, framerate, maxspeed, ...rest} = props
+
   return (
-    <div class="st-video-scrolly">
+    <div className="st-video-scrolly">
       <ObjectFitVideo
-        ref="$el"
-        v-bind="$attrs"
+        ref={$el}
         muted
-        autoplay
+        autoPlay
         preload="auto"
-        webkit-playsinline
-        playsinline
-        {...props}>
-        {props.children}
+        webkit-playsinline=""
+        playsInline
+        {...rest}>
       </ObjectFitVideo>
       {props.artefacts && props.artefacts(state)}
     </div>
@@ -118,4 +118,12 @@ function getPlaybackRate (props, state) {
   const diff = state.targetFrame - state.actualFrame
   if (diff >= 0) return Math.min(diff, props.maxspeed)
   return Math.max(diff + 1, -props.maxspeed)
+}
+
+function onLoadeddata ($video, cb) {
+  if ($video.readyState > 1) {
+    cb()
+  } else {
+    $video.addEventListener('loadeddata', cb)
+  }
 }
