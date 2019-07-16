@@ -13,20 +13,19 @@ export default function MyStory () {
     '几度夕阳红。白发渔樵江渚上，都付笑谈中.......'
   ])
 
-  const background = props => (
-    <DynamicMap slideIndex={props.slideIndex} slideCount={props.slideCount}></DynamicMap>
+  const renderBackground = data => (
+    <DynamicMap slideIndex={data.slideIndex} slideCount={data.slideCount}></DynamicMap>
   )
 
-  const slides = props => slideContent.map((p, i) => (
-    <div className="slide" key={i} style={{opacity: props.enter(i, 400) || 0}}>
+  const children = data => slideContent.map((p, i) => (
+    <div className="slide" key={i} style={{opacity: data.enter(i, 400) || 0}}>
       <p className="card">{p}</p>
     </div>
   ))
 
   return (
-    <StScrolly className="my-story" triggerOffset={-100}
-      background={background}
-      slides={slides}>
+    <StScrolly className="my-story" triggerOffset={-100} renderBackground={renderBackground}>
+      {children}
     </StScrolly>
   )
 }

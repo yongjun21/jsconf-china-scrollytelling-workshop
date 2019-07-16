@@ -95,7 +95,7 @@ function StVideoScrolly (props) {
         playsInline
         {...rest}>
       </ObjectFitVideo>
-      {props.artefacts && props.artefacts(state)}
+      {props.renderArtefacts && props.renderArtefacts(state)}
     </div>
   )
 }
@@ -104,7 +104,7 @@ StVideoScrolly.propTypes = {
   progress: PropTypes.number.isRequired,
   framerate: PropTypes.number,
   maxspeed: PropTypes.number,
-  artefacts: PropTypes.func
+  renderArtefacts: PropTypes.func
 }
 
 StVideoScrolly.defaultProps = {
