@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './StScrolly.scss'
 
-const supportsSticky = window.CSS && window.CSS.supports &&
-                       window.CSS.supports('position', 'sticky')
+const supportsSticky = false && window.CSS && window.CSS.supports &&
+                      (window.CSS.supports('position', 'sticky') ||
+                       window.CSS.supports('position', '-webkit-sticky'))
 
 function StScrolly (props) {
   const $el = useRef(null)

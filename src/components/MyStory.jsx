@@ -18,7 +18,7 @@ export default function MyStory () {
   )
 
   const children = data => slideContent.map((p, i) => (
-    <div className="slide" key={i} style={{opacity: data.enter(i, 400) || 0}}>
+    <div className="slide" key={i} style={getStyle(data.enter, i)}>
       <p className="card">{p}</p>
     </div>
   ))
@@ -28,4 +28,10 @@ export default function MyStory () {
       {children}
     </StScrolly>
   )
+}
+
+function getStyle (enter, i) {
+  return {
+    opacity: enter(i, 400) || 0
+  }
 }
