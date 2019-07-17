@@ -1,10 +1,10 @@
-# The Interactive Graphics Developer Toolbox - 互动图表程序员的工具箱
+# 运用滚动交互来讲你的故事<br>Using scroll to tell a story
 
 ![Demo](./src/assets/scrollytelling.gif)
 
-## 介绍
+## 个人介绍
 
-您好，我叫汤詠竣，在新加坡报业控股“海峡时报”互动图表团 (SPH Straits Times Interactive Graphics Team) 担任高级网页程序员。这次来 JSConf China 是要跟您分享我在新闻互动图表这方面的工作。我相信在下的程序员参与者，比较多接触的是应用开发，可能也没听说过 JavaScript 领域里有这样的一份工作。
+您好，我叫汤詠竣，在新加坡报业控股 *“海峡时报”* 互动图表团 (SPH Straits Times Interactive Graphics Team) 担任高级网页程序员。这次来 JSConf China 是要跟您分享我在新闻互动图表这方面的工作。我相信在下的程序员参与者，比较多接触的是应用开发，可能也没听说过 JavaScript 领域里有这样的一份工作。
 
 1. 互动图表团是做什么的？
 2. 哪些公司有互动图表团？
@@ -12,9 +12,13 @@
 3. 做一个互动图表程序员或设计师需要些什么知识？
 4. 我们究竟是程序员，是平面设计师，还是新闻记者？
 
-我会通过这个工作坊给我们这个领域一个简单的介绍。此外我也要分享我们从互动图表工作得来的一些技术心得。
+我会通过这个工作坊给我们这个领域一个简单的介绍。此外我也要分享我们在滚动交互方面的一些技术心得。
 
-近年来，各大新闻社的互动图表团 像 New York Times Graphics, Washington Post Graphics, Reuters Graphics 等都开始在引用 Scrollytelling (滚动叙事) 的方式来呈现它们的新闻图表故事。滚动叙事这个技术很适用于移动平台，也很适合现今注意力短的观众。用最小的交互来带出最大的信息是它的一大特真。你们今天会跟着我一起编程一个滚动叙事的页面，故事会以一个地图图表为基础。学会了滚动叙事，你们可以发挥创意，运用在自己的项目，不限于新闻故事。
+## 工作坊简介<br>Workshop description
+
+近年来，各大新闻社的互动图表团像 *“纽约时报”*, *“华盛顿邮报”*, *“路透社”* 等都开始在引用 **Scrollytelling (滚动叙事)** 的方式来呈现它们的新闻图表故事。滚动叙事这个技术很适用于移动平台，也能很好抓住现今读者短缺的注意力。用最小的交互带出最大的信息是它的一大特征。来自新加坡 *“海峡时报”* 的高级网页程序员 **汤詠竣** 将带领大家学习开发一个滚动叙事的页面。掌握滚动叙事的一些技巧，你便能创意运用滚动交互来呈现你的新闻，产品，或是个人故事。
+
+Lately, major news organizations like *New York Times*, *Washington Post* and *Reuters* are producing more and more visual stories presented in a **Scrollytelling** format. Using scroll to tell a story works really well for mobile users and is well suited for today's readers with shrinking attention span. With scrollytelling, maximum information can be conveyed with the least amount of user interaction. Senior Web Developer **Yong Jun** from Singapore's *The Straits Times* will guide you in building a scrollytelling visual story. The techniques you learn at this workshop will allow you to creatively use scroll to present your own news stories, product stories, or even personal stories.
 
 ## 滚动叙事 例子
 
@@ -36,19 +40,19 @@
 ### *Channel News Asia*
 - https://infographics.channelnewsasia.com/jewel-changi-airport/index.html
 
+## 目标对象 / 参与者所需知识<br>Target audience / Required prior knowledge
+
+欢迎感兴趣于前端开发和交互设计的你参与此工作坊。为简化编程，我们将使用前端框架。教材会有 Vue 和 React 两个版本。参与者需要至少认识其中一个才能更好的跟上教程。
+
+Anyone interested in frontend developement or user interaction design is welcomed to join this workshop. To speed up developement, we will be using a framework. You can choose using React or Vue to build the app but knowledge in one of these frameworks is required to follow alone.
+
 ## 工作坊的基本规划
 
 - 流程：3 小时
 - 人数：～30
-- 人手：讲师 1 位，助手 1 位
+- 人手：讲师 1 位，助手 2-3 位
 - 语言：英语 / 华语
 - 场地需求：投影机，白板
-- 参与者事先准备: 
-    - 下载[这个 repo](https://github.com/yongjun21/jsconf-china-scrollytelling-workshop)
-    - `npm install` 安装
-    - 我会尽可能排除 external dependencies 让参与者无需联网开发
-    - 会使用框架 (React 用者请在游览器安装 React Devtools, Vue 用者请在游览器安装 Vue Devtools)
-- 参与者所需知识：Vue 或者 React (我会提供一些帮助参与者打造 Scrollytelling 的组建，会有 Vue 和 React 的版本，参与者需要起码懂其中一个框架)
 - 目标：参与者在讲师的引导下一步步完成一个简单的滚动叙事页面
 
 ## 涵盖的知识范围
@@ -62,13 +66,25 @@
   - Entering / Exiting (逐渐进入和退出)
   - Progress tracking (进度跟踪)
 5. Synchonizing dynamic scene with scroll state - 把动态场景连接上滚动状态
-6. Applications - 不同的使用方式
+6. Applications - 各种不同的使用方式
   - SVG charts
   - Maps
   - Images
   - 3D models
   - Videos
 7. Intersection Observer API
+
+## 详细流程
+
+Refer to [lesson plan](./doc/LESSON_PLAN.md)
+
+## 参与者事先准备
+
+请参与者在工作坊的前三天内完成以下步骤载：
+1. 下载这个 repo: [https://github.com/yongjun21/jsconf-china-scrollytelling-workshop](https://github.com/yongjun21/jsconf-china-scrollytelling-workshop)
+2. React 用者请换去 `react` branch. Vue 用者保持在 `vue` branch.
+3. `npm install` 安装
+4. 在游览器安装 [Vue devtools](https://github.com/vuejs/vue-devtools) / [React devtools](https://github.com/facebook/react-devtools)
 
 ## 成品样本
 
