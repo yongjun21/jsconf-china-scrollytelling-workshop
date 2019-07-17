@@ -20,7 +20,7 @@
 #### Part 3: Using our scrolly component to build a scrollytelling visual story (~30min)
 - Pre-built story components will be provided
 - Pre-built scrolly component will be provided in case participant did not manage to follow in earlier parts
-- Participant task is to chain up scrolly component with the story components to create a scrollytelling visual story
+- Participant task is to chain up scrolly component with various story components to create a scrollytelling visual story
 
 ### Optional
 
