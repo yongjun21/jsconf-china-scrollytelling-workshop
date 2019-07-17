@@ -78,13 +78,19 @@ Anyone interested in frontend developement or user interaction design is welcome
 
 Refer to [lesson plan](./doc/LESSON_PLAN.md)
 
-## 参与者事先准备
+## 参与者事先准备<br>Participants to prepare
 
 请参与者在工作坊的前三天内完成以下步骤载：
 1. 下载这个 repo: [https://github.com/yongjun21/jsconf-china-scrollytelling-workshop](https://github.com/yongjun21/jsconf-china-scrollytelling-workshop)
 2. React 用者请换去 `react` branch. Vue 用者保持在 `vue` branch.
 3. `npm install` 安装
 4. 在游览器安装 [Vue devtools](https://github.com/vuejs/vue-devtools) / [React devtools](https://github.com/facebook/react-devtools)
+
+3 days before workshop
+1. Clone this repo: [https://github.com/yongjun21/jsconf-china-scrollytelling-workshop](https://github.com/yongjun21/jsconf-china-scrollytelling-workshop)
+2. Switch to `react` branch if you intend to build this app in React. Stay in default `vue` branch otherwise.
+3. `npm install`
+4. Install [Vue devtools](https://github.com/vuejs/vue-devtools) / [React devtools](https://github.com/facebook/react-devtools) browser extension
 
 ## 成品样本
 
