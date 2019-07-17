@@ -40,7 +40,7 @@
 
 - 流程：3 小时
 - 人数：～30
-- 人手：讲师 1 位，助手 1 位
+- 人手：讲师 1 位，助手 2-3 位
 - 语言：英语 / 华语
 - 场地需求：投影机，白板
 - 参与者事先准备: 
@@ -69,6 +69,10 @@
   - 3D models
   - Videos
 7. Intersection Observer API
+
+## 详细流程
+
+Refer to [lesson plan](./doc/LESSON_PLAN.md)
 
 ## 成品样本
 
