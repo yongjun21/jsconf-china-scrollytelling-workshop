@@ -31,6 +31,9 @@ Lately, major news organizations like *New York Times*, *Washington Post* and *R
 - https://www.nytimes.com/interactive/2019/03/14/arts/design/hudson-yards-nyc.html
 - https://www.nytimes.com/interactive/2019/04/17/world/europe/notre-dame-cathedral-fire-spread.html
 
+### *Washington Post*
+- https://www.washingtonpost.com/graphics/2018/national/us-mexico-border-flyover/
+
 ### *Reuters*
 - http://fingfx.thomsonreuters.com/gfx/rngs/PHILIPPINES-DRUGWAR/010041TN3Z8/index.html
 
@@ -44,7 +47,7 @@ Lately, major news organizations like *New York Times*, *Washington Post* and *R
 
 欢迎感兴趣于前端开发和交互设计的你参与此工作坊。为简化编程，我们将使用前端框架。教材会有 Vue 和 React 两个版本。参与者需要至少认识其中一个才能更好的跟上教程。
 
-Anyone interested in frontend developement or user interaction design is welcomed to join this workshop. To speed up developement, we will be using a framework. You can choose using React or Vue to build the app but knowledge in one of these frameworks is required to follow alone.
+Anyone interested in frontend developement or user interaction design is welcomed to join this workshop. To speed up developement, we will be using a framework. You can choose using React or Vue to build the app but knowledge in one of these frameworks is required to follow along.
 
 ## 工作坊的基本规划
 
