@@ -77,6 +77,10 @@ Anyone interested in frontend developement or user interaction design is welcome
   - Videos
 7. Intersection Observer API
 
+## 演示文稿
+
+[https://slides.com/yongjun21/jsconf-china-2019/edit](https://slides.com/yongjun21/jsconf-china-2019/edit)
+
 ## 详细流程
 
 Refer to [lesson plan](./doc/LESSON_PLAN.md)
