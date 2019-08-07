@@ -16,7 +16,7 @@ import {TileLayer} from '@deck.gl/geo-layers'
 import {VectorTile} from '@mapbox/vector-tile'
 import Protobuf from 'pbf'
 
-import {clamp} from './StScrolly.vue'
+import {clamp} from '@st-graphics/scrolly'
 
 const viewState = {
   latitude: 1.3517474635381912,

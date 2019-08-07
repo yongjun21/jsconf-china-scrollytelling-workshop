@@ -19,6 +19,7 @@
 import ObjectFitVideo from './ObjectFitVideo.vue'
 
 export default {
+  name: 'StVideoScrolly',
   components: {ObjectFitVideo},
   inheritAttrs: false,
   props: {

@@ -12,6 +12,8 @@
     "@deck.gl/geo-layers": "^7.1.7",
     "@deck.gl/layers": "^7.1.7",
     "@mapbox/vector-tile": "^1.3.1",
+    "@st-graphics/scrolly": "0.0.2",
+    "@st-graphics/video-scrolly": "0.0.2",
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "mapbox-gl": "^1.1.0",

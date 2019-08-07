@@ -13,7 +13,9 @@
 </template>
 
 <script>
-import StScrolly from './StScrolly.vue'
+import '@st-graphics/scrolly/dist/bundle.css'
+
+import StScrolly from '@st-graphics/scrolly'
 import DynamicMap from './DynamicMap.vue'
 
 export default {
