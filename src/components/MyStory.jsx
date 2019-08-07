@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
+import '@st-graphics/react-scrolly/dist/bundle.css'
 import './MyStory.scss'
 
-import StScrolly from './StScrolly'
+import StScrolly from '@st-graphics/react-scrolly'
 import DynamicMap from './DynamicMap'
 
 export default function MyStory () {
