@@ -1,0 +1,27 @@
+{
+  "tiles": [
+    "https://mapbox-gl/tiles/tile/{z}/{x}/{y}.pbf"
+  ],
+  "name": "OSM Buildings",
+  "format": "pbf",
+  "id": "osmb-buildings",
+  "attribution": "<a href=\"https://osmbuildings.org/copyright\">&copy; OSM Buildings</a> <a href=\"https://www.openstreetmap.org/about/\">&copy; OpenStreetMap contributors</a>",
+  "description": "OSM Buildings Vector Tiles - https://osmbuildings.org",
+  "minzoom": 15,
+  "maxzoom": 17,
+  "vector_layers": [
+    {
+      "id": "building",
+      "description": "",
+      "minzoom": 15,
+      "maxzoom": 17,
+      "fields": {
+        "minHeight": "Number",
+        "height": "Number",
+        "color": "String",
+        "roofColor": "String"
+      }
+    }
+  ],
+  "tilejson": "2.0.0"
+}
