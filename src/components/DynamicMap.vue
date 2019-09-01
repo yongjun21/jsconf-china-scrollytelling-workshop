@@ -1,140 +1,125 @@
 <template>
   <div class="dynamic-map">
     <div class="map-container" ref="base"></div>
-    <div class="deck-container"><canvas ref="deck"></canvas></div>
-    <h1 class="year">{{year}}</h1>
+    <h1 class="rank">排名第 {{currentSlide.rank}}</h1>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import {Deck} from '@deck.gl/core'
-import {TileLayer} from '@deck.gl/geo-layers'
-import {VectorTile} from '@mapbox/vector-tile'
-import Protobuf from 'pbf'
-
-import {clamp} from '@st-graphics/scrolly'
-
-const viewState = {
-  latitude: 1.3517474635381912,
-  longitude: 103.94508562958512,
-  minZoom: 13,
-  maxZoom: 17,
-  zoom: 14.3,
-  bearing: 20,
-  pitch: 60
-}
-
 export default {
-  props: ['slideIndex', 'slideCount'],
+  props: ['slideIndex', 'enter', 'slides'],
   computed: {
-    year () {
-      return clamp(this.slideIndex, 0, this.slideCount - 1) * 10 + 1970
-    }
-  },
-  methods: {
-    getFill (f) {
-      const built = f.properties.built
-      const opacity = built < this.year + 10 ? 255 : 0
-      if (built < 1970) return [216, 128, 173, opacity]
-      if (built < 1980) return [240, 140, 164, opacity]
-      if (built < 1990) return [253, 158, 153, opacity]
-      if (built < 2000) return [253, 181, 140, opacity]
-      if (built < 2010) return [254, 199, 187, opacity]
-      if (built < 2020) return [254, 228, 112, opacity]
-      return 'none'
-    },
-    getElevation (f) {
-      const built = f.properties.built
-      return built < this.year + 10 ? f.properties.height || 0 : 0
-    },
-    getLayers () {
-      return [
-        new TileLayer({
-          id: 'static',
-          getTileData: ({x, y, z}) => getTile(x, y, z).then(features => features.filter(f => !f.properties.built)),
-          extruded: true,
-          getFillColor: [255, 255, 255, 255],
-          getElevation: f => f.properties.height || 0
-        }),
-        new TileLayer({
-          id: 'dynamic',
-          getTileData: ({x, y, z}) => getTile(x, y, z).then(features => features.filter(f => f.properties.built)),
-          extruded: true,
-          getFillColor: this.getFill,
-          getElevation: this.getElevation,
-          transitions: {
-            getElevation: 1000,
-            getFillColor: 1000
-          },
-          updateTriggers: {
-            getElevation: [this.year],
-            getFillColor: [this.year]
-          }
-        })
-      ]
+    currentSlide () {
+      return this.slides[this.slideIndex]
     }
   },
   mounted () {
+    const {slides} = this
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhY2hvcGF6b3MiLCJhIjoiY2pkMDN3eW4wNHkwZDJ5bGc0cnpueGNxbCJ9.WWWg_OnK5e7L1RknMliY4A'
     const map = new mapboxgl.Map({
       container: this.$refs.base,
-      style: 'mapbox://styles/chachopazos/cjxemaj7e025i1cmuwcxbndu2',
-      center: [viewState.longitude, viewState.latitude],
-      zoom: viewState.zoom,
-      bearing: viewState.bearing,
-      pitch: viewState.pitch
+      style: '/mapbox-gl/style.json',
+      center: [121.495, 31.240],
+      minZoom: 15,
+      maxZoom: 15,
+      zoom: 15,
+      bearing: 190,
+      pitch: 60,
+      interactive: false,
+      transformRequest: url => {
+        const transformed = url.replace(
+          'https://mapbox-gl/',
+          window.location.origin + '/mapbox-gl/'
+        )
+        return {url: transformed}
+      }
     })
 
     map.on('load', () => {
-      const deck = new Deck({
-        canvas: this.$refs.deck,
-        width: '100%',
-        height: '100%',
-        viewState,
-        initialViewState: viewState,
-        // onViewStateChange ({viewState}) {
-        //   map.jumpTo({
-        //     center: [viewState.longitude, viewState.latitude],
-        //     zoom: viewState.zoom,
-        //     bearing: viewState.bearing,
-        //     pitch: viewState.pitch
-        //   })
-        // },
-        // controller: true,
-        layers: this.getLayers()
-      })
+      const features = map.querySourceFeatures('osmbuildings', {sourceLayer: 'building'})
+      const matchedFeatures = slides.map(row => features.filter(row.filter))
 
-      this.$watch('year', () => {
-        deck.setProps({layers: this.getLayers()})
-      })
+      map.addLayer({
+        'id': '3d-buildings',
+        'source': 'osmbuildings',
+        'source-layer': 'building',
+        'type': 'fill-extrusion',
+        'paint': {
+          'fill-extrusion-color': [
+            'case',
+            ['boolean', ['feature-state', 'highlighted'], false],
+            '#f00',
+            '#aaa'
+          ],
+          'fill-extrusion-height': [
+            'case',
+            ['has', 'height'],
+            [
+              '*',
+              ['get', 'height'],
+              ['number', ['feature-state', 'factor'], 1]
+            ],
+            [
+              '*',
+              ['number', ['get', 'levels'], 1],
+              ['number', ['feature-state', 'factor'], 1],
+              3
+            ]
+          ],
+          'fill-extrusion-base': [
+            'case',
+            ['has', 'minHeight'],
+            [
+              '*',
+              ['get', 'minHeight'],
+              ['number', ['feature-state', 'factor'], 1]
+            ],
+            [
+              '*',
+              ['number', ['get', 'minLevel'], 0],
+              ['number', ['feature-state', 'factor'], 1],
+              3
+            ]
+          ],
+          'fill-extrusion-opacity': 0.6
+        }
+      }, 'place-other')
+
+      this.$watch('slideIndex', index => {
+        matchedFeatures.forEach((features, i) => {
+          const highlighted = i === index
+          features.forEach(f => {
+            map.setFeatureState({
+              source: 'osmbuildings',
+              sourceLayer: 'building',
+              id: f.id
+            }, {
+              highlighted
+            })
+          })
+        })
+      }, {immediate: true})
+
+      this.$watch('enter', enter => {
+        matchedFeatures.forEach((features, i) => {
+          const factor = Math.max(enter(i, 300, 0), enter(i, -30, -330))
+          features.forEach(f => {
+            map.setFeatureState({
+              source: 'osmbuildings',
+              sourceLayer: 'building',
+              id: f.id
+            }, {
+              factor
+            })
+          })
+        })
+      }, {immediate: true})
     })
   }
-}
-
-const dataCache = {}
-function getTile (x, y, z) {
-  const key = [z, x, y].join('/')
-  if (key in dataCache) return dataCache[key]
-  const url = `https://d3a6pnaj5tfasc.cloudfront.net/maps/hdb/${z}/${x}/${y}.pbf`
-  dataCache[key] = axios.get(url, {responseType: 'arraybuffer'})
-    .then(res => res.data)
-    .then(buffer => {
-      const tile = new VectorTile(new Protobuf(buffer))
-      const layer = tile.layers.buildings
-      const features = []
-      for (let i = 0; i < layer.length; i++) {
-        const feature = layer.feature(i).toGeoJSON(x, y, z)
-        if (feature.geometry.type === 'MultiPolygon' && feature.geometry.coordinates.length === 0) continue
-        features.push(feature)
-      }
-      return features
-    })
-    .catch(() => [])
-  return dataCache[key]
 }
 </script>
 
@@ -143,8 +128,7 @@ function getTile (x, y, z) {
   width: 100%;
   height: 100%;
 
-  .map-container,
-  .deck-container {
+  .map-container {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -159,23 +143,12 @@ function getTile (x, y, z) {
 
   h1 {
     margin: 0;
-    padding: 20px;
+    padding: 30px 100px;
     text-align: right;
-    color: white;
+    color: #EEEEEE;
     font-size: 3rem;
-    text-shadow: 0 0 2px black;
+    text-shadow: 0 0 2px black, 1px 2px 2px black;
     position: relative;
-  }
-
-  input[type="range"] {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    padding: 30px 0;
-    margin: 0;
-    width: 100%;
-    z-index: 1;
-    box-sizing: border-box;
   }
 
   .mapboxgl-control-container {
