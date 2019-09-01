@@ -3,16 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@deck.gl/core": "^7.1.10",
-    "@deck.gl/geo-layers": "^7.1.10",
-    "@deck.gl/layers": "^7.1.10",
-    "@mapbox/vector-tile": "^1.3.1",
-    "@st-graphics/react-scrolly": "0.0.4",
+    "@st-graphics/react-scrolly": "0.0.7",
     "@st-graphics/react-video-scrolly": "0.0.2",
-    "axios": "^0.19.0",
     "classnames": "^2.2.6",
     "mapbox-gl": "^1.1.0",
-    "pbf": "^3.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"

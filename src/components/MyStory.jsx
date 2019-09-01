@@ -1,31 +1,32 @@
-import React, {useState} from 'react'
+import React from 'react'
 import '@st-graphics/react-scrolly/dist/bundle.css'
 import './MyStory.scss'
 
-import StScrolly from '@st-graphics/react-scrolly'
+import StScrolly, {clamp} from '@st-graphics/react-scrolly'
 import DynamicMap from './DynamicMap'
 
-export default function MyStory () {
-  const [slideContent] = useState([
-    '滚滚长江东逝水，浪花淘尽英雄。是非成败转头空，青山依旧在，几度夕阳红。',
-    '白发渔樵江渚上，惯看秋月春风。一壶浊酒喜相逢，古今多少事，都付笑谈中。',
-    '是非成败转头空，青山依旧在，惯看秋月春风。',
-    '一壶浊酒喜相逢，古今多少事，滚滚长江东逝水，浪花淘尽英雄。',
-    '几度夕阳红。白发渔樵江渚上，都付笑谈中.......'
-  ])
+import {tallest} from '../data'
 
+const slides = tallest.reverse()
+
+export default function MyStory () {
   const renderBackground = data => (
-    <DynamicMap slideIndex={data.slideIndex} slideCount={data.slideCount}></DynamicMap>
+    <DynamicMap
+      slideIndex={clamp(data.slideIndex, 0, slides.length - 1)}
+      enter={data.enter}
+      slides={slides} />
   )
 
-  const children = data => slideContent.map((p, i) => (
-    <div className="slide" key={i} style={getStyle(data.enter, i)}>
-      <p className="card">{p}</p>
+  const children = data => slides.map((slide, i) => (
+    <div className="slide" key={slide.rank} style={getStyle(data.enter, i)}>
+      <p className="card">{slide.name_chi} ({slide.year})<br />{slide.height} m</p>
     </div>
   ))
 
   return (
-    <StScrolly className="my-story" triggerOffset={-100} renderBackground={renderBackground}>
+    <StScrolly className="my-story"
+      triggerOffset={-300}
+      renderBackground={renderBackground}>
       {children}
     </StScrolly>
   )
