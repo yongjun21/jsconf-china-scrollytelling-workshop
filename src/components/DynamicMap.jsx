@@ -106,7 +106,7 @@ function DynamicMap (props) {
     if (!matchedFeatures) return
     const map = mapRef.current
     matchedFeatures.forEach((features, i) => {
-      const factor = Math.max(enter(i, 300, 0), enter(i, -30, -330))
+      const factor = Math.max(enter(i, 300, 0), 1 - enter(i, 30, -300))
       features.forEach(f => {
         map.setFeatureState({
           source: 'osmbuildings',
