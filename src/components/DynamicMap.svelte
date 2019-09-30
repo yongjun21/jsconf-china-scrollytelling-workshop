@@ -4,7 +4,9 @@
 </div>
 
 <script>
+import 'mapbox-gl/dist/mapbox-gl.css'
 import mapboxgl from 'mapbox-gl'
+
 import {onMount} from 'svelte'
 
 export let slideIndex
