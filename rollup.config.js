@@ -18,6 +18,7 @@ export default {
     file: 'public/bundle.js'
   },
   plugins: [
+    css({output: 'public/bundle.css'}),
     svelte({
       // enable run-time checks when not in production
       dev: !production,
@@ -26,7 +27,6 @@ export default {
       emitCss: true,
       preprocess: autoPreprocess()
     }),
-    css({output: 'public/bundle.css'}),
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
     // some cases you'll need additional configuration —

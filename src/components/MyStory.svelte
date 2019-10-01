@@ -16,7 +16,7 @@
 </div>
 
 <script>
-import StScrolly, {clamp} from './StScrolly.svelte'
+import StScrolly, {clamp} from '@st-graphics/svelte-scrolly'
 import DynamicMap from './DynamicMap.svelte'
 
 import {tallest} from '../data'
