@@ -119,6 +119,8 @@ onMount(() => {
       }
     }, 'place-other')
   })
+
+  window.requestAnimationFrame(() => map.resize())
 })
 </script>
 
