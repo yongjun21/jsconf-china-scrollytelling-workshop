@@ -1,6 +1,6 @@
 // https://en.wikipedia.org/wiki/Lujiazui
 
-export const tallest = [{
+export const features = [{
   rank: 1,
   name_eng: 'Shanghai Tower',
   name_chi: '上海中心大厦',

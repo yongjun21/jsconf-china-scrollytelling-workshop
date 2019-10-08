@@ -8,16 +8,14 @@ function DynamicMap (props) {
   const mapRef = useRef(null)
   const [featureStateSetters, setFeatureStateSetters] = useState(null)
   
-  const {slides, slideIndex, enter} = props
-  const currentSlide = slides[slideIndex]
-
-  const progressLastSlide = props.progress.at(slides.length)(true)
+  const {features, slideIndex, enter, progress} = props
+  const currentFeature = features[slideIndex]
   
   useEffect(() => {
     mapRef.current = setupMap($base.current, map => {
-      const features = map.querySourceFeatures('osmbuildings', {sourceLayer: 'building'})
-      const featureStateSetters = slides.map(row => {
-        const filtered = features.filter(row.filter)
+      const mapFeatures = map.querySourceFeatures('osmbuildings', {sourceLayer: 'building'})
+      const featureStateSetters = features.map(row => {
+        const filtered = mapFeatures.filter(row.filter)
         return state => filtered.forEach(f => {
           map.setFeatureState({
             source: 'osmbuildings',
@@ -28,7 +26,7 @@ function DynamicMap (props) {
       })
       setFeatureStateSetters(featureStateSetters)
     })
-  }, [slides])
+  }, [features])
 
   useEffect(() => {
     if (!featureStateSetters) return
@@ -49,15 +47,15 @@ function DynamicMap (props) {
   useEffect(() => {
     if (!featureStateSetters) return
     const map = mapRef.current
-    const t = progressLastSlide
+    const t = progress.at(features.length)(true)
     const b = (1 - t) * 190 + t * 60
     map.setBearing(b)
-  }, [featureStateSetters, progressLastSlide])
+  }, [featureStateSetters, progress, features.length])
 
   return (
     <div className="dynamic-map">
       <div className="map-container" ref={$base}></div>
-      <h1 className="rank">排名第 {currentSlide.rank}</h1>
+      <h1 className="rank">排名第 {currentFeature.rank}</h1>
     </div>
   )
 }

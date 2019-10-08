@@ -1,0 +1,44 @@
+.simple-scrolly {
+  position: relative;
+
+  .slide {
+    height: 1200px;
+    padding: 200px 100px;
+    box-sizing: border-box;
+  }
+
+  .slide + .slide {
+    border-top: 3px solid black;
+  }
+
+  .card {
+    display: inline-block;
+    width: 250px;
+    margin: 0;
+    float: right;
+    padding: 1em;
+    background-color: white;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 1.6em;
+    border-radius: 5px;
+    box-shadow: 0 0 1px #AAA;
+  }
+
+  .sticky-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+  }
+
+  .sticky-content {
+    background-color: red;
+    position: sticky;
+    height: 50vh;
+    top: 25vh;
+  }
+}
