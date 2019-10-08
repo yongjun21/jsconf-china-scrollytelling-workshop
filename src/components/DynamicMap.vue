@@ -9,22 +9,19 @@
 import setupMap from '../services/setupMap'
 
 export default {
-  props: ['slideIndex', 'enter', 'progress', 'slides'],
+  props: ['slideIndex', 'enter', 'progress', 'features'],
   computed: {
     currentSlide () {
-      return this.slides[this.slideIndex]
-    },
-    progressLastSlide () {
-      return this.progress.at(this.slides.length)(true)
+      return this.features[this.slideIndex]
     }
   },
   mounted () {
-    const {slides} = this
+    const {features} = this
 
     setupMap(this.$refs.base, map => {
-      const features = map.querySourceFeatures('osmbuildings', {sourceLayer: 'building'})
-      const featureStateSetters = slides.map(row => {
-        const filtered = features.filter(row.filter)
+      const mapFeatures = map.querySourceFeatures('osmbuildings', {sourceLayer: 'building'})
+      const featureStateSetters = features.map(row => {
+        const filtered = mapFeatures.filter(row.filter)
         return state => filtered.forEach(f => {
           map.setFeatureState({
             source: 'osmbuildings',
@@ -34,6 +31,7 @@ export default {
         })
       })
 
+      // HINT: https://st-scrolly.netlify.com/guide/#using-slideindex-from-slot-scope
       this.$watch('slideIndex', index => {
         featureStateSetters.forEach((setter, i) => {
           const highlighted = i === index
@@ -41,6 +39,7 @@ export default {
         })
       }, {immediate: true})
 
+      // HINT: https://st-scrolly.netlify.com/guide/#using-enter-exit-from-slot-scope
       this.$watch('enter', enter => {
         featureStateSetters.forEach((setter, i) => {
           const factor = Math.max(enter(i, 300, 0), 1 - enter(i, 30, -300))
@@ -48,7 +47,9 @@ export default {
         })
       }, {immediate: true})
 
-      this.$watch('progressLastSlide', t => {
+      // HINT: https://st-scrolly.netlify.com/guide/#using-progress-from-slot-scope
+      this.$watch('progress', progress => {
+        const t = progress.at(features.length)(true)
         const b = (1 - t) * 190 + t * 60
         map.setBearing(b)
       }, {immediate: true})

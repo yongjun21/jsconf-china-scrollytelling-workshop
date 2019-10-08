@@ -2,17 +2,17 @@
   <st-scrolly class="my-story" :triggerOffset="-300">
     <template v-slot:background="{slideIndex, enter, progress}">
       <dynamic-map
-        :slide-index="clamp(slideIndex, 0, slides.length - 1)"
+        :slide-index="clamp(slideIndex, 0, features.length - 1)"
         :enter="enter"
         :progress="progress"
-        :slides="slides">
+        :features="features">
       </dynamic-map>
     </template>
 
     <template v-slot="{enter}">
-      <div class="slide" v-for="(slide, i) in slides" :key="slide.rank">
+      <div class="slide" v-for="(f, i) in features" :key="f.rank">
         <p class="card" :style="{opacity: enter(i, 400)}">
-          {{slide.name_chi}} ({{slide.year}})<br>{{slide.height}} m
+          {{f.name_chi}} ({{f.year}})<br>{{f.height}} m
         </p>
       </div>
       <div class="final slide"></div>
@@ -26,14 +26,14 @@ import '@st-graphics/scrolly/dist/bundle.css'
 import StScrolly, {clamp} from '@st-graphics/scrolly'
 import DynamicMap from './DynamicMap.vue'
 
-import {tallest} from '../data'
+import {features} from '../data'
 
 export default {
   components: {StScrolly, DynamicMap},
   data () {
     return {
       // Using Object.freeze as data is static
-      slides: Object.freeze(tallest.reverse())
+      features: Object.freeze(features.reverse())
     }
   },
   methods: {
