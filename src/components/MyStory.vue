@@ -1,29 +1,26 @@
 <template>
-  <st-scrolly class="my-story" :triggerOffset="-300">
+  <st-scrolly class="my-story">
     <template v-slot:background="{slideIndex, enter, progress}">
       <dynamic-map
-        :slide-index="clamp(slideIndex, 0, features.length - 1)"
+        :slide-index="slideIndex"
         :enter="enter"
         :progress="progress"
         :features="features">
       </dynamic-map>
     </template>
 
-    <template v-slot="{enter}">
-      <div class="slide" v-for="(f, i) in features" :key="f.rank">
-        <p class="card" :style="{opacity: enter(i, 400)}">
-          {{f.name_chi}} ({{f.year}})<br>{{f.height}} m
-        </p>
-      </div>
-      <div class="final slide"></div>
-    </template>
+    <div class="slide" v-for="f in features" :key="f.rank">
+      <p class="card">
+        {{f.name_chi}} ({{f.year}})<br>{{f.height}} m
+      </p>
+    </div>
   </st-scrolly>
 </template>
 
 <script>
 import '@st-graphics/scrolly/dist/bundle.css'
 
-import StScrolly, {clamp} from '@st-graphics/scrolly'
+import StScrolly from '@st-graphics/scrolly'
 import DynamicMap from './DynamicMap.vue'
 
 import {features} from '../data'
@@ -35,9 +32,6 @@ export default {
       // Using Object.freeze as data is static
       features: Object.freeze(features.reverse())
     }
-  },
-  methods: {
-    clamp
   }
 }
 </script>

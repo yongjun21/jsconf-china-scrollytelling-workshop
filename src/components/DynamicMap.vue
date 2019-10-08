@@ -1,7 +1,7 @@
 <template>
   <div class="dynamic-map">
     <div class="map-container" ref="base"></div>
-    <h1 class="rank">排名第 {{currentFeature.rank}}</h1>
+    <h1 class="rank">排名第 {{'XXX'}}</h1>
   </div>
 </template>
 
@@ -10,11 +10,6 @@ import setupMap from '../services/setupMap'
 
 export default {
   props: ['slideIndex', 'enter', 'progress', 'features'],
-  computed: {
-    currentFeature () {
-      return this.features[this.slideIndex]
-    }
-  },
   mounted () {
     const {features} = this
 
@@ -31,28 +26,14 @@ export default {
         })
       })
 
+      // Example usage
+      featureStateSetters[0]({highlighted: true})
+
       // HINT: https://st-scrolly.netlify.com/guide/#using-slideindex-from-slot-scope
-      this.$watch('slideIndex', index => {
-        featureStateSetters.forEach((setter, i) => {
-          const highlighted = i === index
-          setter({highlighted})
-        })
-      }, {immediate: true})
 
       // HINT: https://st-scrolly.netlify.com/guide/#using-enter-exit-from-slot-scope
-      this.$watch('enter', enter => {
-        featureStateSetters.forEach((setter, i) => {
-          const factor = Math.max(enter(i, 300, 0), 1 - enter(i, 30, -300))
-          setter({factor})
-        })
-      }, {immediate: true})
 
       // HINT: https://st-scrolly.netlify.com/guide/#using-progress-from-slot-scope
-      this.$watch('progress', progress => {
-        const t = progress.at(features.length)(true)
-        const b = (1 - t) * 190 + t * 60
-        map.setBearing(b)
-      }, {immediate: true})
     })
   }
 }

@@ -1,74 +1,10 @@
 <template>
   <div class="simple-scrolly">
-    <div class="sticky-container">
-      <div class="sticky-content" :style="stickyStyle"></div>
-    </div>
-
-    <div class="slide-container" ref="slides">
-      <div class="slide">
-        <div class="card">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
-      </div>
-      <div class="slide">
-        <div class="card">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
-      </div>
-      <div class="slide">
-        <div class="card">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      scrollPosition: -1,
-      triggerPositions: [-1, -1, -1]
-    }
-  },
-  computed: {
-    slideIndex () {
-      return this.triggerPositions.filter(pos => pos >= 0).length - 1
-    },
-    stickyStyle () {
-      return {
-        backgroundColor: ['red', 'green', 'blue'][this.slideIndex]
-      }
-    }
-  },
-  methods: {
-    measure () {
-      this.scrollPosition = -this.$el.getBoundingClientRect().top
-      this.triggerPositions = Array.prototype.map.call(
-        this.$refs.slides.children,
-        $slide => -$slide.getBoundingClientRect().top
-      )
-    }
-  },
-  mounted () {
-    this.measure()
-    this.measure = frameRateLimited(this.measure)
-    window.addEventListener('scroll', this.measure)
-  },
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.measure)
-  },
-  watch: {
-    slideIndex: console.log
-  }
-}
-
-function frameRateLimited (cb, context) {
-  let ready = true
-  function wrapped () {
-    if (!ready) return
-    ready = false
-    window.requestAnimationFrame(() => {
-      cb.apply(this, arguments)
-      ready = true
-    })
-  }
-  return context ? wrapped.bind(context) : wrapped
 }
 </script>
 
@@ -112,9 +48,6 @@ function frameRateLimited (cb, context) {
 
   .sticky-content {
     background-color: red;
-    position: sticky;
-    height: 50vh;
-    top: 25vh;
   }
 }
 </style>
