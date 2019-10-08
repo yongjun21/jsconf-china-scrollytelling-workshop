@@ -79,7 +79,7 @@ Anyone interested in frontend developement or user interaction design is welcome
 
 ## 演示文稿
 
-[https://slides.com/yongjun21/jsconf-china-2019/edit](https://slides.com/yongjun21/jsconf-china-2019/edit)
+[https://slides.com/yongjun21/jsconf-china-2019](https://slides.com/yongjun21/jsconf-china-2019)
 
 ## 详细流程
 

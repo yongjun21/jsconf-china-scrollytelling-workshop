@@ -10,16 +10,18 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 export default {
-  props: ['slideIndex', 'enter', 'slides'],
+  props: ['slideIndex', 'enter', 'progress', 'slides'],
   computed: {
     currentSlide () {
       return this.slides[this.slideIndex]
+    },
+    progressLastSlide () {
+      return this.progress.at(this.slides.length)(true)
     }
   },
   mounted () {
     const {slides} = this
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhY2hvcGF6b3MiLCJhIjoiY2pkMDN3eW4wNHkwZDJ5bGc0cnpueGNxbCJ9.WWWg_OnK5e7L1RknMliY4A'
     const map = new mapboxgl.Map({
       container: this.$refs.base,
       style: '/mapbox-gl/style.json',
@@ -117,6 +119,11 @@ export default {
             })
           })
         })
+      }, {immediate: true})
+
+      this.$watch('progressLastSlide', t => {
+        const b = (1 - t) * 190 + t * 60
+        map.setBearing(b)
       }, {immediate: true})
     })
   }
