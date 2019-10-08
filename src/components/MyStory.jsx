@@ -14,6 +14,7 @@ export default function MyStory () {
     <DynamicMap
       slideIndex={clamp(data.slideIndex, 0, slides.length - 1)}
       enter={data.enter}
+      progress={data.progress}
       slides={slides} />
   )
 
@@ -21,7 +22,7 @@ export default function MyStory () {
     <div className="slide" key={slide.rank} style={getStyle(data.enter, i)}>
       <p className="card">{slide.name_chi} ({slide.year})<br />{slide.height} m</p>
     </div>
-  ))
+  )).concat(<div className="final slide"></div>)
 
   return (
     <StScrolly className="my-story"

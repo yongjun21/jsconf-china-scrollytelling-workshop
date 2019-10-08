@@ -11,9 +11,10 @@ function DynamicMap (props) {
   
   const {slides, slideIndex, enter} = props
   const currentSlide = slides[slideIndex]
+
+  const progressLastSlide = props.progress.at(slides.length)(true)
   
   useEffect(() => {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhY2hvcGF6b3MiLCJhIjoiY2pkMDN3eW4wNHkwZDJ5bGc0cnpueGNxbCJ9.WWWg_OnK5e7L1RknMliY4A'
     const map = mapRef.current = new mapboxgl.Map({
       container: $base.current,
       style: '/mapbox-gl/style.json',
@@ -118,6 +119,14 @@ function DynamicMap (props) {
       })
     })
   }, [matchedFeatures, enter])
+
+  useEffect(() => {
+    if (!matchedFeatures) return
+    const map = mapRef.current
+    const t = progressLastSlide
+    const b = (1 - t) * 190 + t * 60
+    map.setBearing(b)
+  }, [matchedFeatures, progressLastSlide])
 
   return (
     <div className="dynamic-map">
