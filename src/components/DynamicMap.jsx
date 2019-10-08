@@ -28,6 +28,7 @@ function DynamicMap (props) {
     })
   }, [features])
 
+  // HINT: https://st-scrolly.netlify.com/react/#using-slideindex-when-render-props-are-in-function-form
   useEffect(() => {
     if (!featureStateSetters) return
     featureStateSetters.forEach((setter, i) => {
@@ -36,6 +37,7 @@ function DynamicMap (props) {
     })
   }, [featureStateSetters, slideIndex])
 
+  // HINT: https://st-scrolly.netlify.com/react/#using-enter-exit-when-render-props-are-in-function-form
   useEffect(() => {
     if (!featureStateSetters) return
     featureStateSetters.forEach((setter, i) => {
@@ -44,6 +46,7 @@ function DynamicMap (props) {
     })
   }, [featureStateSetters, enter])
 
+  // HINT: https://st-scrolly.netlify.com/react/#using-progress-when-render-props-are-in-function-form
   useEffect(() => {
     if (!featureStateSetters) return
     const map = mapRef.current

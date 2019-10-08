@@ -5,7 +5,6 @@ export default function SimpleScrolly (props) {
   const $el = useRef()
   const $slides = useRef()
 
-  // eslint-disable-next-line
   const [scrollPosition, setScrollPosition] = useState(-1)
   const [triggerPositions, setTriggerPositions] = useState([-1, -1, -1])
 
@@ -28,6 +27,10 @@ export default function SimpleScrolly (props) {
     window.addEventListener('scroll', measure)
     return () => window.removeEventListener('scroll', measure)
   }, [measure])
+
+  useEffect(() => {
+    console.log(scrollPosition)
+  }, [scrollPosition])
 
   return (
     <div className="simple-scrolly" ref={$el}>
