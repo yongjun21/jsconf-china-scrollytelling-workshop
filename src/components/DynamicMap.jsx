@@ -1,13 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react'
 import './DynamicMap.scss'
 
-import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import setupMap from '../services/setupMap'
 
 function DynamicMap (props) {
   const $base = useRef(null)
   const mapRef = useRef(null)
-  const [matchedFeatures, setMatchedFeatures] = useState(null)
+  const [featureStateSetters, setFeatureStateSetters] = useState(null)
   
   const {slides, slideIndex, enter} = props
   const currentSlide = slides[slideIndex]
@@ -15,118 +14,45 @@ function DynamicMap (props) {
   const progressLastSlide = props.progress.at(slides.length)(true)
   
   useEffect(() => {
-    const map = mapRef.current = new mapboxgl.Map({
-      container: $base.current,
-      style: '/mapbox-gl/style.json',
-      center: [121.495, 31.240],
-      minZoom: 15,
-      maxZoom: 15,
-      zoom: 15,
-      bearing: 190,
-      pitch: 60,
-      interactive: false,
-      transformRequest: url => {
-        const transformed = url.replace(
-          'https://mapbox-gl/',
-          window.location.origin + '/mapbox-gl/'
-        )
-        return {url: transformed}
-      }
-    })
-
-    map.on('load', () => {
+    mapRef.current = setupMap($base.current, map => {
       const features = map.querySourceFeatures('osmbuildings', {sourceLayer: 'building'})
-      setMatchedFeatures(slides.map(row => features.filter(row.filter)))
-
-      map.addLayer({
-        'id': '3d-buildings',
-        'source': 'osmbuildings',
-        'source-layer': 'building',
-        'type': 'fill-extrusion',
-        'paint': {
-          'fill-extrusion-color': [
-            'case',
-            ['boolean', ['feature-state', 'highlighted'], false],
-            '#f00',
-            '#aaa'
-          ],
-          'fill-extrusion-height': [
-            'case',
-            ['has', 'height'],
-            [
-              '*',
-              ['get', 'height'],
-              ['number', ['feature-state', 'factor'], 1]
-            ],
-            [
-              '*',
-              ['number', ['get', 'levels'], 1],
-              ['number', ['feature-state', 'factor'], 1],
-              3
-            ]
-          ],
-          'fill-extrusion-base': [
-            'case',
-            ['has', 'minHeight'],
-            [
-              '*',
-              ['get', 'minHeight'],
-              ['number', ['feature-state', 'factor'], 1]
-            ],
-            [
-              '*',
-              ['number', ['get', 'minLevel'], 0],
-              ['number', ['feature-state', 'factor'], 1],
-              3
-            ]
-          ],
-          'fill-extrusion-opacity': 0.6
-        }
-      }, 'place-other')
+      const featureStateSetters = slides.map(row => {
+        const filtered = features.filter(row.filter)
+        return state => filtered.forEach(f => {
+          map.setFeatureState({
+            source: 'osmbuildings',
+            sourceLayer: 'building',
+            id: f.id
+          }, state)
+        })
+      })
+      setFeatureStateSetters(featureStateSetters)
     })
   }, [slides])
 
   useEffect(() => {
-    if (!matchedFeatures) return
-    const map = mapRef.current
-    matchedFeatures.forEach((features, i) => {
+    if (!featureStateSetters) return
+    featureStateSetters.forEach((setter, i) => {
       const highlighted = i === slideIndex
-      features.forEach(f => {
-        map.setFeatureState({
-          source: 'osmbuildings',
-          sourceLayer: 'building',
-          id: f.id
-        }, {
-          highlighted
-        })
-      })
+      setter({highlighted})
     })
-  }, [matchedFeatures, slideIndex])
+  }, [featureStateSetters, slideIndex])
 
   useEffect(() => {
-    if (!matchedFeatures) return
-    const map = mapRef.current
-    matchedFeatures.forEach((features, i) => {
+    if (!featureStateSetters) return
+    featureStateSetters.forEach((setter, i) => {
       const factor = Math.max(enter(i, 300, 0), 1 - enter(i, 30, -300))
-      features.forEach(f => {
-        map.setFeatureState({
-          source: 'osmbuildings',
-          sourceLayer: 'building',
-          id: f.id
-        }, {
-          factor
-        })
-      })
+      setter({factor})
     })
-  }, [matchedFeatures, enter])
+  }, [featureStateSetters, enter])
 
   useEffect(() => {
-    if (!matchedFeatures) return
+    if (!featureStateSetters) return
     const map = mapRef.current
     const t = progressLastSlide
     const b = (1 - t) * 190 + t * 60
     map.setBearing(b)
-  }, [matchedFeatures, progressLastSlide])
+  }, [featureStateSetters, progressLastSlide])
 
   return (
     <div className="dynamic-map">
