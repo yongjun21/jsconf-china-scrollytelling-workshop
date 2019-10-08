@@ -19,8 +19,8 @@ export default function MyStory () {
   )
 
   const children = data => features.map((f, i) => (
-    <div className="slide" key={f.rank} style={getStyle(data.enter, i)}>
-      <p className="card">{f.name_chi} ({f.year})<br />{f.height} m</p>
+    <div className="slide" key={f.rank}>
+      <p className="card" style={getStyle(data.enter, i)}>{f.name_chi} ({f.year})<br />{f.height} m</p>
     </div>
   )).concat(<div className="final slide" key="final"></div>)
 
