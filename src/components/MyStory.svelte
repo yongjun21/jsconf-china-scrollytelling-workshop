@@ -1,9 +1,10 @@
 <div class="my-story">
   <StScrolly triggerOffset={-300} let:enter>
-    <div slot="background" let:slideIndex let:enter>
+    <div slot="background" let:slideIndex let:enter let:progress>
       <DynamicMap
         slideIndex={clamp(slideIndex, 0, slides.length - 1)}
         {enter}
+        {progress}
         {slides} />
     </div>
 
@@ -12,6 +13,7 @@
         <p class="card">{slide.name_chi} ({slide.year})<br>{slide.height} m</p>
       </div>
     {/each}
+    <div class="final slide"></div>
   </StScrolly>
 </div>
 

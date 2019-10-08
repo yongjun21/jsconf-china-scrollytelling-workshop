@@ -11,6 +11,7 @@ import {onMount} from 'svelte'
 
 export let slideIndex
 export let enter
+export let progress
 export let slides
 
 let baseRef
@@ -47,6 +48,12 @@ $: if (map && matchedFeatures) {
       })
     })
   })
+}
+
+$: if (map && matchedFeatures) {
+  const t = progress.at(slides.length)(true)
+  const b = (1 - t) * 190 + t * 60
+  map.setBearing(b)
 }
 
 onMount(() => {
@@ -120,7 +127,7 @@ onMount(() => {
     }, 'place-other')
   })
 
-  window.requestAnimationFrame(() => map.resize())
+  setTimeout(() => map.resize(), 100)
 })
 </script>
 
