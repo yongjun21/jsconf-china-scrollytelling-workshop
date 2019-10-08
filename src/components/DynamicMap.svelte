@@ -4,10 +4,8 @@
 </div>
 
 <script>
-import 'mapbox-gl/dist/mapbox-gl.css'
-import mapboxgl from 'mapbox-gl'
-
 import {onMount} from 'svelte'
+import setupMap from '../services/setupMap'
 
 export let slideIndex
 export let enter
@@ -16,115 +14,43 @@ export let slides
 
 let baseRef
 let map
-let matchedFeatures
+let featureStateSetters
 
 $: currentSlide = slides[slideIndex]
 
-$: if (map && matchedFeatures) {
-  matchedFeatures.forEach((features, i) => {
+$: if (featureStateSetters) {
+  featureStateSetters.forEach((setter, i) => {
     const highlighted = i === slideIndex
-    features.forEach(f => {
-      map.setFeatureState({
-        source: 'osmbuildings',
-        sourceLayer: 'building',
-        id: f.id
-      }, {
-        highlighted
-      })
-    })
+    setter({highlighted})
   })
 }
 
-$: if (map && matchedFeatures) {
-  matchedFeatures.forEach((features, i) => {
+$: if (featureStateSetters) {
+  featureStateSetters.forEach((setter, i) => {
     const factor = Math.max(enter(i, 300, 0), 1 - enter(i, 30, -300))
-    features.forEach(f => {
-      map.setFeatureState({
-        source: 'osmbuildings',
-        sourceLayer: 'building',
-        id: f.id
-      }, {
-        factor
-      })
-    })
+    setter({factor})
   })
 }
 
-$: if (map && matchedFeatures) {
+$: if (featureStateSetters) {
   const t = progress.at(slides.length)(true)
   const b = (1 - t) * 190 + t * 60
   map.setBearing(b)
 }
 
 onMount(() => {
-  map = new mapboxgl.Map({
-    container: baseRef,
-    style: '/mapbox-gl/style.json',
-    center: [121.495, 31.240],
-    minZoom: 15,
-    maxZoom: 15,
-    zoom: 15,
-    bearing: 190,
-    pitch: 60,
-    interactive: false,
-    transformRequest: url => {
-      const transformed = url.replace(
-        'https://mapbox-gl/',
-        window.location.origin + '/mapbox-gl/'
-      )
-      return {url: transformed}
-    }
-  })
-
-  map.on('load', () => {
+  map = setupMap(baseRef, map => {
     const features = map.querySourceFeatures('osmbuildings', {sourceLayer: 'building'})
-    matchedFeatures = slides.map(row => features.filter(row.filter))
-
-    map.addLayer({
-      'id': '3d-buildings',
-      'source': 'osmbuildings',
-      'source-layer': 'building',
-      'type': 'fill-extrusion',
-      'paint': {
-        'fill-extrusion-color': [
-          'case',
-          ['boolean', ['feature-state', 'highlighted'], false],
-          '#f00',
-          '#aaa'
-        ],
-        'fill-extrusion-height': [
-          'case',
-          ['has', 'height'],
-          [
-            '*',
-            ['get', 'height'],
-            ['number', ['feature-state', 'factor'], 1]
-          ],
-          [
-            '*',
-            ['number', ['get', 'levels'], 1],
-            ['number', ['feature-state', 'factor'], 1],
-            3
-          ]
-        ],
-        'fill-extrusion-base': [
-          'case',
-          ['has', 'minHeight'],
-          [
-            '*',
-            ['get', 'minHeight'],
-            ['number', ['feature-state', 'factor'], 1]
-          ],
-          [
-            '*',
-            ['number', ['get', 'minLevel'], 0],
-            ['number', ['feature-state', 'factor'], 1],
-            3
-          ]
-        ],
-        'fill-extrusion-opacity': 0.6
-      }
-    }, 'place-other')
+    featureStateSetters = slides.map(row => {
+      const filtered = features.filter(row.filter)
+      return state => filtered.forEach(f => {
+        map.setFeatureState({
+          source: 'osmbuildings',
+          sourceLayer: 'building',
+          id: f.id
+        }, state)
+      })
+    })
   })
 
   setTimeout(() => map.resize(), 100)
