@@ -1,7 +1,7 @@
 <template>
   <div class="dynamic-map">
     <div class="map-container" ref="base"></div>
-    <h1 class="rank">排名第 {{currentSlide.rank}}</h1>
+    <h1 class="rank">排名第 {{currentFeature.rank}}</h1>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import setupMap from '../services/setupMap'
 export default {
   props: ['slideIndex', 'enter', 'progress', 'features'],
   computed: {
-    currentSlide () {
+    currentFeature () {
       return this.features[this.slideIndex]
     }
   },
