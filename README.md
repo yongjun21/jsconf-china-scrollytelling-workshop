@@ -1,6 +1,6 @@
 # 运用滚动交互来讲你的故事<br>Using scroll to tell a story
 
-![Demo](./src/assets/scrollytelling.gif)
+[![Demo](./src/assets/scrollytelling.gif)](https://scrollytelling-react.netlify.com)
 
 ## 个人介绍
 
@@ -37,7 +37,11 @@ Lately, major news organizations like *New York Times*, *Washington Post* and *R
 ### *Reuters*
 - http://fingfx.thomsonreuters.com/gfx/rngs/PHILIPPINES-DRUGWAR/010041TN3Z8/index.html
 
-### *South China Morning Post*
+### 财新
+
+- https://datanews.caixin.com/interactive/2019/guangboticao/index.html
+
+### 南华早报
 - https://multimedia.scmp.com/culture/article/2154046/forbidden-city/life/chapter_01.html
 
 ### *Channel News Asia*
@@ -48,6 +52,30 @@ Lately, major news organizations like *New York Times*, *Washington Post* and *R
 欢迎感兴趣于前端开发和交互设计的你参与此工作坊。为简化编程，我们将使用前端框架。教材会有 Vue 和 React 两个版本。参与者需要至少认识其中一个才能更好的跟上教程。
 
 Anyone interested in frontend developement or user interaction design is welcomed to join this workshop. To speed up developement, we will be using a framework. You can choose using React or Vue to build the app but knowledge in one of these frameworks is required to follow along.
+
+## 演示文稿
+
+[https://slides.com/yongjun21/jsconf-china-2019](https://slides.com/yongjun21/jsconf-china-2019)
+
+## 参与者事先准备<br>Participants to prepare
+
+请参与者在工作坊的前三天内完成以下步骤载：
+1. 下载这个 repo: [https://github.com/yongjun21/jsconf-china-scrollytelling-workshop](https://github.com/yongjun21/jsconf-china-scrollytelling-workshop)
+2. React 用者请换去 `react` branch. Vue 用者保持在 `vue` branch.
+3. `npm install` 安装
+4. 在游览器安装 [Vue devtools](https://github.com/vuejs/vue-devtools) / [React devtools](https://github.com/facebook/react-devtools)
+5. 本工作坊将使用一个 “海峡时报” 互动图表团开源的滚动叙事工具 `@st-graphics/scrolly`。[请参考文档](https://st-scrolly.netlify.com)
+
+3 days before workshop
+1. Clone this repo: [https://github.com/yongjun21/jsconf-china-scrollytelling-workshop](https://github.com/yongjun21/jsconf-china-scrollytelling-workshop)
+2. Switch to `react` branch if you intend to build this app in React. Stay in default `vue` branch otherwise.
+3. `npm install`
+4. Install [Vue devtools](https://github.com/vuejs/vue-devtools) / [React devtools](https://github.com/facebook/react-devtools) browser extension
+5. We will be using a *Straits Times* Interactive Graphics Team opensourced scrollytelling library `@st-graphics/scrolly`. [Refer to documentation here](https://st-scrolly.netlify.com)
+
+## 成品样本
+
+[https://scrollytelling-react.netlify.com/](https://scrollytelling-react.netlify.com/)
 
 ## 工作坊的基本规划
 
@@ -76,32 +104,6 @@ Anyone interested in frontend developement or user interaction design is welcome
   - 3D models
   - Videos
 7. Intersection Observer API
-
-## 演示文稿
-
-[https://slides.com/yongjun21/jsconf-china-2019](https://slides.com/yongjun21/jsconf-china-2019)
-
-## 详细流程
-
-Refer to [lesson plan](./doc/LESSON_PLAN.md)
-
-## 参与者事先准备<br>Participants to prepare
-
-请参与者在工作坊的前三天内完成以下步骤载：
-1. 下载这个 repo: [https://github.com/yongjun21/jsconf-china-scrollytelling-workshop](https://github.com/yongjun21/jsconf-china-scrollytelling-workshop)
-2. React 用者请换去 `react` branch. Vue 用者保持在 `vue` branch.
-3. `npm install` 安装
-4. 在游览器安装 [Vue devtools](https://github.com/vuejs/vue-devtools) / [React devtools](https://github.com/facebook/react-devtools)
-
-3 days before workshop
-1. Clone this repo: [https://github.com/yongjun21/jsconf-china-scrollytelling-workshop](https://github.com/yongjun21/jsconf-china-scrollytelling-workshop)
-2. Switch to `react` branch if you intend to build this app in React. Stay in default `vue` branch otherwise.
-3. `npm install`
-4. Install [Vue devtools](https://github.com/vuejs/vue-devtools) / [React devtools](https://github.com/facebook/react-devtools) browser extension
-
-## 成品样本
-
-[https://scrollytelling-react.netlify.com/](https://scrollytelling-react.netlify.com/)
 
 ## 关于讲师
 
