@@ -8,8 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@st-graphics/scrolly": "0.0.6",
-    "@st-graphics/video-scrolly": "0.0.2",
+    "@st-graphics/scrolly": "0.0.7",
     "core-js": "^2.6.5",
     "mapbox-gl": "^1.1.0",
     "vue": "^2.6.10"
