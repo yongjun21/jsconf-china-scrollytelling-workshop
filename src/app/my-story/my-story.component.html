@@ -1,0 +1,25 @@
+<div class="my-story">
+  <st-scrolly
+    [backgroundTemplate]="background"
+    [slidesTemplate]="slides"
+    [triggerOffset]="-300">
+  </st-scrolly>
+  
+  <ng-template #background let-slideIndex="slideIndex" let-enter="enter" let-progress="progress">
+    <dynamic-map
+      [slideIndex]="clamp(slideIndex, 0, features.length - 1)"
+      [enter]="enter"
+      [progress]="progress"
+      [features]="features">
+    </dynamic-map>
+  </ng-template>
+
+  <ng-template #slides let-enter="enter">
+    <div class="slide" *ngFor="let f of features; index as i">
+      <p class="card" [ngStyle]="{opacity: enter(i, 400, -100)}">
+        {{f.name_chi}} ({{f.year}})<br>{{f.height}} m
+      </p>
+    </div>
+    <div class="final slide"></div>
+  </ng-template>
+</div>
