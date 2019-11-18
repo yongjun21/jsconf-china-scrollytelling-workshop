@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@st-graphics/react-scrolly": "0.0.9",
-    "@st-graphics/react-video-scrolly": "0.0.2",
+    "@st-graphics/react-scrolly": "0.0.10",
     "classnames": "^2.2.6",
     "mapbox-gl": "^1.1.0",
     "prop-types": "^15.7.2",
