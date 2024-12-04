@@ -1,6 +1,6 @@
 # 运用滚动交互来讲你的故事<br>Using scroll to tell a story
 
-[![Demo](./src/assets/scrollytelling.gif)](https://scrollytelling.netlify.com)
+[![Demo](./src/assets/scrollytelling.gif)](https://scrollytelling.netlify.app)
 
 ## 个人介绍
 
